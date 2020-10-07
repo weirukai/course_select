@@ -10,7 +10,6 @@
 export default {
   name: 'App',
   components: {
-
   }
 }
 </script>
@@ -22,10 +21,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 .appContainer{
   height: 100%;
   width: 100%;
-  background-color:#2c3e50;
 }
 </style>

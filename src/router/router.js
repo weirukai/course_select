@@ -16,7 +16,7 @@ const myRouter = new Router({
         },
         {
             path: '/mainPage',
-            component:()=> import("../pages/layoutContainer/layoutContainer"),
+            component:()=> import("../pages/layoutContainer/LayoutContainer"),
             meta: {
                 title: 'mainPage'
             }

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import LayoutContainer from "@/pages/layoutContainer/LayoutContainer";
 
 Vue.use(Router)
 const myRouter = new Router({
@@ -16,10 +17,26 @@ const myRouter = new Router({
         },
         {
             path: '/mainPage',
-            component:()=> import("../pages/layoutContainer/LayoutContainer"),
+            name:'LayoutContainer',
             meta: {
                 title: 'mainPage'
-            }
+            },
+            component:LayoutContainer,
+            children:[
+                {
+                    path: "",
+                    redirect:"generalCourse"
+
+                },
+                {
+                    name:'generalCourse',
+                    path:'generalCourse',
+                    component:()=>import("../components/generalCourse.vue"),
+                    meta:{
+                        title:"公共选修课"
+                    }
+                }
+            ]
         }
     ]
 })

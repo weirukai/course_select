@@ -1,6 +1,6 @@
 export  const  menu=[
     {
-        icon:"el-icon-user",
+        icon:"iconfont icon-选课",
         name:"个人中心",
         router:"/UserCenter",
         id:"1",
@@ -14,7 +14,6 @@ export  const  menu=[
                 id:"1-2",
                 name:"隐私设置",
                 router:""
-
             }
         ]
     },

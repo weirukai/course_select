@@ -13,7 +13,8 @@
       <template v-for="index in menu">
         <el-submenu :index="index.id" :key="index.id">
           <template slot="title">
-            <i :class="index.icon"></i>
+<!--           <div class="menu-imageWrapper"><el-image :src="index.icon"  class="menu-image"></el-image></div>-->
+           <i :class="index.icon"></i>
             <span slot="title">{{ index.name }}</span>
           </template>
           <el-menu-item-group class="menu-item-group">
@@ -58,5 +59,10 @@ export default {
 <style scoped>
 .asideContainer {
   height: 100%;
+}
+
+.menu-imageWrapper{
+
+
 }
 </style>

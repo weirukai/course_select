@@ -1,12 +1,11 @@
 <template>
-  <div class="asideContainer">
+  <div class="asideContainer main-backgroundColor">
     <el-menu
         default-active="2"
-        class="el-menu-vertical-demo"
+        class="el-menu-vertical-demo main-backgroundColor"
         @open="handleOpen"
         @close="handleClose"
         @select="select"
-        background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
         router>
@@ -58,7 +57,6 @@ export default {
 
 <style scoped>
 .asideContainer {
-
-
+  height: 100%;
 }
 </style>

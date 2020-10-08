@@ -1,7 +1,7 @@
 <template>
   <div class="layoutContainer">
     <el-container  class="el-container">
-      <el-header class="header">
+      <el-header class="header" style="height: 80px">
         <Header/>
       </el-header>
       <el-container>
@@ -38,7 +38,7 @@ export default {
 }
 
 .header{
-  height: 20%;
+  height: 80px;
   padding: 0;
   border-bottom: 2px solid #ffffff;
 }

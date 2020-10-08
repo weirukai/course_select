@@ -1,11 +1,23 @@
 <template>
 <div class="headerContainer">
-<el-row>
-  <el-col><div>123</div></el-col>
-</el-row>
-<el-row>
-  <el-col><div>3445</div></el-col>
-</el-row>
+  <div class="headleft">华中科技大学选课系统</div>
+  <div class="headerright">
+    <el-dropdown class="avatar-container" trigger="click">
+      <div class="avator-wrapper">
+        <img
+            src="http://img.alicdn.com/tfs/TB1fc6SdKuSBuNjy1XcXXcYjFXa-36-36.png"
+            class="user-avatar"
+        >
+        {{username}}<i class="el-icon-caret-bottom"></i>
+      </div>
+      <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <el-dropdown-item></el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
+  </div>
+
+
+
 
 </div>
 
@@ -23,7 +35,12 @@ name: "header"
 
 .headerContainer{
   height: 70px;
-  width: 100%;
   background-color: antiquewhite;
+}
+.headleft{
+  float: left;
+}
+.headerright{
+  float: right;
 }
 </style>

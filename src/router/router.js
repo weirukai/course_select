@@ -35,6 +35,30 @@ const myRouter = new Router({
                     meta:{
                         title:"公共选修课"
                     }
+                },
+                {
+                    name:'PECourse',
+                    path:'PECourse',
+                    component:()=>import("../components/PECourse"),
+                    meta:{
+                        title:"体育课选课"
+                    }
+                },
+                {
+                    name:'majorCourse',
+                    path:'majorCourse',
+                    component:()=>import("../components/majorCourse"),
+                    meta:{
+                        title:"专业选修课"
+                    }
+                },
+                {
+                    name:'courseSelected',
+                    path:'courseSelected',
+                    component:()=>import("../components/courseSelected"),
+                    meta:{
+                        title:"已选课程"
+                    }
                 }
             ]
         }

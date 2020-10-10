@@ -10,7 +10,10 @@ export default {
 </script>
 
 <style scoped>
+
+
 .wrapperMain {
+
   height: 100%;
   width: 100%;
 }

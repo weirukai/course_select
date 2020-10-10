@@ -11,7 +11,7 @@ name: "MainContainer"
 
 <style scoped>
 .wrapperMain{
-
-
+  height: 100%;
+  width: 100%;
 }
 </style>

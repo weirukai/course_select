@@ -1,4 +1,4 @@
-import {get,post} from './request';
+import {post} from './request';
 import {messages} from "./Notice"
 export const  login= (that,login)=>
 {
@@ -20,3 +20,21 @@ export const  login= (that,login)=>
             )
     });
 }
+
+
+export const requestForCourse=(url,courseData)=>
+{
+        post(url,courseData).then(
+            (res)=>{
+                return res
+            },
+            (rej)=>{
+                return rej
+            }
+
+        )
+}
+
+
+
+

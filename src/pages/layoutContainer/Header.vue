@@ -30,11 +30,22 @@
     </div>
   </div>
   <div class="headerDown">
-    <el-row type="flex" class="row-bg" justify="space-around">
-      <el-col><div class="col-name">姓名：{{user.username}}</div></el-col>
-      <el-col><div class="col-studentID>"> 学号：{{user.studentID}}</div></el-col>
-      <el-col><div class="col-classID"> 班级：{{user.classID}}</div></el-col>
-    </el-row>
+    <div>
+      <span class="infoItem">{{user.username}}</span>
+      <el-divider direction="vertical"></el-divider>
+      <span class="infoItem">{{user.studentID}}</span>
+      <el-divider direction="vertical"></el-divider>
+      <span class="infoItem">{{user.classID}}</span>
+    </div>
+
+
+<!--    <el-row type="flex" class="row-bg" style="width: max-content">-->
+<!--      <el-col class="infoItem"><div>{{user.username}}</div> </el-col>-->
+
+<!--      <el-col class="infoItem"><div >{{user.studentID}}</div> </el-col>-->
+
+<!--      <el-col class="infoItem"><div>{{user.classID}}</div></el-col>-->
+<!--    </el-row>-->
   </div>
 </div>
 
@@ -48,10 +59,10 @@ export default {
       input1: '',
       name: "Header",
       user:{
-        username:"pl",
-        studentID:"u201816235",
+        username:"黄仁卓",
+        studentID:"U201816235",
         classID:"软件学院",
-        avatar:"http://img.alicdn.com/tfs/TB1fc6SdKuSBuNjy1XcXXcYjFXa-36-36.png",
+        avatar:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1877122670,861705441&fm=26&gp=0.jpg",
       }
     }
   }
@@ -76,7 +87,8 @@ export default {
   height: 25%;
   display: flex;
   justify-content: flex-end;
-  background-color: aqua;
+  background-color: #2c3e50;
+  color: white;
 }
 .headleft{
   float: left;
@@ -92,10 +104,12 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: 50%;
 }
 
 .user-avatar{
   height: 45px;
+
 }
 .hust-img{
   height:60px;
@@ -108,11 +122,16 @@ export default {
 .input-wrapper{
   margin-left: 20px;
 }
-.row-bg{
-  width: 550px;
-}
+
 .headerDownright{
   display: flex;
   justify-content: end;
+}
+
+.infoItem{
+width: max-content;
+  margin-right: 10px;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-size: 13px;
 }
 </style>

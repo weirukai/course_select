@@ -24,7 +24,11 @@
           ><i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <el-dropdown-item>登出</el-dropdown-item>
+          <el-dropdown-item>帮助</el-dropdown-item>
+          <el-dropdown-item>设置</el-dropdown-item>
+          <el-dropdown-item>我的</el-dropdown-item>
+          <el-dropdown-item>注销</el-dropdown-item>
+
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -136,5 +140,6 @@ width: max-content;
   margin-right: 10px;
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   font-size: 13px;
+  font-weight: bold;
 }
 </style>

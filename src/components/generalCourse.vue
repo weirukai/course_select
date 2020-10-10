@@ -1,6 +1,5 @@
 <template>
-<div  class="generalCourseContainer">
-</div>
+<div class="generalCourseContainer"></div>
 </template>
 
 <script>
@@ -11,6 +10,7 @@ name: "generalCourse"
 
 <style scoped>
 .generalCourseContainer{
+
   height: 100%;
   width: 100%;
 }

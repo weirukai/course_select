@@ -17,11 +17,11 @@
            <i :class="index.icon"></i>
             <span slot="title">{{ index.name }}</span>
           </template>
-          <el-menu-item-group class="menu-item-group">
-            <el-menu-item style="min-width:180px" v-for="item in index.subItem" :index="item.id" :key="item.id"
-                          class="menu-item">{{ item.name }}
-            </el-menu-item>
-          </el-menu-item-group>
+<!--          <el-menu-item-group class="menu-item-group">-->
+<!--            <el-menu-item style="min-width:180px" v-for="item in index.subItem" :index="item.id" :key="item.id"-->
+<!--                          class="menu-item">{{ item.name }}-->
+<!--            </el-menu-item>-->
+<!--          </el-menu-item-group>-->
         </el-submenu>
       </template>
     </el-menu>

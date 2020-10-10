@@ -2,7 +2,7 @@ export  const  menu=[
     {
         icon:"",
         name:"公共课选课",
-        router:"/UserCenter",
+        router:"/generalCourse",
         id:"1",
         // subItem:[
         //     {
@@ -21,7 +21,7 @@ export  const  menu=[
         icon:"",
         name:"体育课选课",
         id:"2",
-        router:"/UserCenter",
+        router:"/PECourse",
         // subItem:[
         //     {
         //         id:"/uploadVideo",
@@ -37,9 +37,9 @@ export  const  menu=[
         // ]
     },
     {
-        icon:"el-icon-s-comment",
+        icon:"",
         name:"专业课选课",
-        router:"/UserCenter",
+        router:"/majorCourse",
         id:"3",
         // subItem:[
         //     {
@@ -58,7 +58,7 @@ export  const  menu=[
     {
         icon:"",
         name:"查看已选和退选",
-        router:"/UserCenter",
+        router:"/CourseSelected",
         id:"4",
         // subItem:[
         //     {
@@ -74,5 +74,4 @@ export  const  menu=[
         //     }
         // ]
     }
-
 ]

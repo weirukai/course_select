@@ -104,11 +104,14 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 50%;
 }
 
 .user-avatar{
-  height: 45px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid #2d3a4b;
+  margin-right: 10px;
 
 }
 .hust-img{

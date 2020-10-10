@@ -11,18 +11,13 @@
         router>
       <!--router属性可以直接将menu-item的index映射成router的path-->
       <template v-for="index in menu">
-        <el-submenu :index="index.id" :key="index.id">
+        <el-menu-item :index="index.id" :key="index.id">
           <template slot="title">
-<!--           <div class="menu-imageWrapper"><el-image :src="index.icon"  class="menu-image"></el-image></div>-->
            <i :class="index.icon"></i>
             <span slot="title">{{ index.name }}</span>
           </template>
-<!--          <el-menu-item-group class="menu-item-group">-->
-<!--            <el-menu-item style="min-width:180px" v-for="item in index.subItem" :index="item.id" :key="item.id"-->
-<!--                          class="menu-item">{{ item.name }}-->
-<!--            </el-menu-item>-->
-<!--          </el-menu-item-group>-->
-        </el-submenu>
+
+        </el-menu-item>
       </template>
     </el-menu>
   </div>

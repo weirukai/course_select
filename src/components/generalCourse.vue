@@ -7,8 +7,10 @@
         <el-menu
             default-active="2"
             class="el-menu-general"
+            unique-opened=true
             @open="handleOpen"
-            @close="handleClose">
+            @close="handleClose"
+        >
           <el-submenu index="1">
             <template slot="title">
               <div class="option-item">
@@ -108,7 +110,7 @@
                 教师：{{ Item.courseCollege }}-{{ Item.teacherName }}-{{ Item.teacherTitle }};
               </p>
               <p class="recruit-text">
-                上课时间:上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
+                时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
               </p>
 
 
@@ -119,7 +121,14 @@
 
           </div>
 
+   <el-pagination
+       background
+       layout="prev, pager, next"
+       :total="1000">
+   </el-pagination>
+
         </div>
+
 
     </el-main>
 
@@ -276,6 +285,7 @@ name: "generalCourse",
   height: 100%;
   vertical-align: middle;
   text-align: left;
+  overflow-x: hidden;
 }
 
 .courseItem {
@@ -284,7 +294,9 @@ name: "generalCourse",
   min-height: 184px;
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+  min-width: 583px;
+
 }
 
 .courseItemActive{
@@ -296,7 +308,8 @@ name: "generalCourse",
   bottom: 6px;
   display: flex;
   flex-direction: row;
-  align-items: center
+  align-items: center;
+  min-width: 583px;
 
 }
 
@@ -311,7 +324,7 @@ name: "generalCourse",
 .courseTitle {
   font-size: 22px;
   line-height: 24px;
-  transition: all .35s cubic-bezier(0.2, 0.0, 0.2, 1);
+  transition: all .05s cubic-bezier(0.2, 0.0, 0.2, 1);
 }
 
 .recruit-tips {

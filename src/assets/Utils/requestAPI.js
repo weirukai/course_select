@@ -19,6 +19,4 @@ export const  login= (that,login)=>
                 }
             )
     });
-
 }
-

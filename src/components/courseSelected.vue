@@ -1,13 +1,16 @@
 <template>
-<div>
+  <div>
 
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-name: "courseSelected"
+  name: "courseSelected",
+
 }
+
+
 </script>
 
 <style scoped>

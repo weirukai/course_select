@@ -132,7 +132,11 @@
           <el-pagination
               background
               layout="prev, pager, next"
-              :total="1000">
+              :page-size="10"
+              :total="courseNum"
+              @current-change="handleCurrentChange"
+              style="text-align: center"
+              >
           </el-pagination>
 
         </div>
@@ -155,8 +159,9 @@ const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文�
 import {ManyCourses} from "@/components/ManyCourses";
 
 export default {
-
   name: "generalCourse",
+
+
   data() {
     return {
       checkedCities: ['东九', '西十二'],
@@ -167,12 +172,22 @@ export default {
       classtimes: classtimeOptions,
       departments: departmentsOptions,
       classtypes: classtypesOptions,
-      courses: ManyCourses
+      courses: [
+
+
+
+      ],
+      courseNum:0
     }
   },
 
+created() {
+    var currentCourse=[];
+    currentCourse= ManyCourses.slice(0,10)
+    this.courses=currentCourse
+    this.courseNum=ManyCourses.length
+},
   methods: {
-
     handleMouseOver: function (event) {
       var currentDom = event.currentTarget
       currentDom.setAttribute("class", "courseItemActive")
@@ -184,6 +199,10 @@ export default {
     chooseClass:function ()
     {
 
+    },
+    handleCurrentChange(val)
+    {
+      this.courses=ManyCourses.slice((val-1)*10,val*10);
     }
 
   },

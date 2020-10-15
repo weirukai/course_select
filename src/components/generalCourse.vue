@@ -124,7 +124,7 @@
 
             </div>
 
-            <i class="el-icon-plus selectIcon"></i>
+            <i class="el-icon-plus selectIcon" @click="chooseClass(Item.id)"></i>
 
 
           </div>
@@ -132,7 +132,11 @@
           <el-pagination
               background
               layout="prev, pager, next"
-              :total="1000">
+              :page-size="10"
+              :total="courseNum"
+              @current-change="handleCurrentChange"
+              style="text-align: center"
+          >
           </el-pagination>
 
         </div>
@@ -155,8 +159,9 @@ const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文�
 import {ManyCourses} from "@/components/ManyCourses";
 
 export default {
-
   name: "generalCourse",
+
+
   data() {
     return {
       checkedCities: ['东九', '西十二'],
@@ -167,12 +172,18 @@ export default {
       classtimes: classtimeOptions,
       departments: departmentsOptions,
       classtypes: classtypesOptions,
-      courses: ManyCourses
+      courses: [],
+      courseNum: 0
     }
   },
 
+  created() {
+    var currentCourse = [];
+    currentCourse = ManyCourses.slice(0, 10)
+    this.courses = currentCourse
+    this.courseNum = ManyCourses.length
+  },
   methods: {
-
     handleMouseOver: function (event) {
       var currentDom = event.currentTarget
       currentDom.setAttribute("class", "courseItemActive")
@@ -181,9 +192,28 @@ export default {
       var currentDom = event.currentTarget
       currentDom.setAttribute("class", "courseItem")
     },
-    chooseClass:function ()
-    {
+    chooseClass: function (classID) {
+      console.log(classID)
+      this.$confirm('确定选择这门课程?', '确认信息', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'info',
+        center: true
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '选择成功!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
 
+    },
+    handleCurrentChange(val) {
+      this.courses = ManyCourses.slice((val - 1) * 10, val * 10);
     }
 
   },

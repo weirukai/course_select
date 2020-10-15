@@ -13,8 +13,6 @@ export default {
 
 
 .wrapperMain {
-  overflow: hidden;
-
   height: 100%;
   width: 100%;
 }

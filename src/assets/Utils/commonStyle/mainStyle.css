@@ -8,3 +8,10 @@
 .main-backgroundColorLevel3{
     background-color:#314458 ;
 }
+
+.color-danger{
+    color: #F56C6C;
+}
+.color-success{
+    color: #67C23A;
+}

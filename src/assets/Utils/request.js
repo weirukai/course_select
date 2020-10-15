@@ -7,7 +7,7 @@ import {messages} from './Notice'
 import store from '../../store/index'
 
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://10.10.200.70:8090/";
+axios.defaults.baseURL = "http://10.10.212.25:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;

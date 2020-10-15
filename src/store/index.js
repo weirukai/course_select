@@ -1,9 +1,11 @@
 import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate"
 import state from "@/store/state";
+import Vue from 'vue'
 import mutations from "@/store/mutation";
 import actions from "@/store/actions";
-let Store = new Vuex.Store({
+Vue.use(Vuex)
+let store = new Vuex.Store({
     state,
     mutations,
     actions,
@@ -14,4 +16,4 @@ let Store = new Vuex.Store({
     })]
 })
 
-export default Store
+export default store

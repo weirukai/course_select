@@ -9,6 +9,7 @@ export const  login= (that,login)=>
                 (res)=>
                 {
                     that.$store.commit("SaveToken",res.data.token)
+                    that.$router.push("/mainPage")
                     resolve(res.data.code)
                 },
                 //失败回调

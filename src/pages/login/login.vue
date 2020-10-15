@@ -9,7 +9,7 @@
           >
         </div>
         <div class="logheader-right">
-          <div>
+          <div style="margin: auto">
             <span class="infoItem">热点问题</span>
             <el-divider direction="vertical"></el-divider>
             <span class="infoItem">使用帮助</span>
@@ -27,26 +27,30 @@
           <div class="loginForm">
             <div class="formContainer">
               <div class="formWrapper">
-                <img src="https://pass.hust.edu.cn/cas/comm/image/logo-inside.png"
-                     style="margin: 30px 0 80px;width: 300px;height: 60px;margin-bottom: 80px">
-                <el-row :gutter="20">
+                <img src="http://hub.hust.edu.cn/images/hustpass.png?randomId=1602773736916"
+                     style="margin: 30px 0 80px;width: 300px;height: 80px;margin-bottom: 60px">
+                <el-row :gutter="70">
                   <el-col :lg="6" :sm="10" class="aa">
                     <el-form class="el-form" :model="ruleForm" status-icon ref="ruleForm" label-width="100px">
                       <el-form-item style="margin-left: 0px" prop="pass">
-                        <el-input  prefix-icon="el-icon-user" placeholder="请输入用户名" v-model="ruleForm.username" autocomplete="off"></el-input>
+                        <el-input prefix-icon="el-icon-user" placeholder="请输入用户名" v-model="ruleForm.username"
+                                  autocomplete="off"></el-input>
                       </el-form-item>
 
-                      <el-form-item  prop="username">
-                        <el-input prefix-icon="el-icon-unlock" placeholder="请输入密码" type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                      <el-form-item prop="username">
+                        <el-input prefix-icon="el-icon-unlock" placeholder="请输入密码" type="password"
+                                  v-model="ruleForm.password" autocomplete="off"></el-input>
                       </el-form-item>
                       <!--<el-form-item label="年龄" prop="age">
                         <el-input v-model.number="ruleForm.age"></el-input>
                       </el-form-item>-->
                       <div class="buttonContainer">
-                        <el-button type="primary" @click="submitForm('ruleForm')" style="margin-bottom: 20px;font-size: 20px">提交</el-button>
-                        <el-button @click="resetForm('ruleForm')" style="font-size: 20px;margin-left: 0px">重置</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')"
+                                   style="margin-bottom: 20px;font-size: 20px">提交
+                        </el-button>
+                        <el-button @click="resetForm('ruleForm')" style="font-size: 20px;margin-left: 0px">重置
+                        </el-button>
                       </div>
-
 
 
                     </el-form>
@@ -65,6 +69,8 @@
 </template>
 
 <script>
+import {login} from "@/assets/Utils/requestAPI";
+
 export default {
   name: "login",
   data() {
@@ -79,19 +85,23 @@ export default {
 
   },
   mounted() {
-
-   var dom2= document.getElementsByClassName("el-form-item__content")
+    var dom2 = document.getElementsByClassName("el-form-item__content")
     console.log(dom2)
-    for (let i=0;i<dom2.length;++i)
-    {
-      dom2[i].setAttribute("style","margin-left:0px");
+    for (let i = 0; i < dom2.length; ++i) {
+      dom2[i].setAttribute("style", "margin-left:0px");
     }
   },
   methods: {
     submitForm(formName) {
+      let that=this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+
+
+
+          login(that, this.ruleForm)
+
+
         } else {
           return false;
         }
@@ -125,7 +135,8 @@ export default {
   float: none;
   width: 400px;
 }
-.logheader{
+
+.logheader {
   display: flex;
   justify-content: space-between;
   height: 80px;
@@ -133,42 +144,51 @@ export default {
   color: #ffffff;
 }
 
-.logheader-left{
+.logheader-left {
 
 }
-.logMain{
+
+.logMain {
   padding: 0;
-  background:url("http://hub.hust.edu.cn/images/login-1.jpg ") no-repeat;
+  background: url("http://hub.hust.edu.cn/images/login-1.jpg ") no-repeat;
   background-size: 100% 100%;
+  box-shadow: inset 0.5px 0.2px 5px 0px #eeeeee;
 }
-.logheader-right{
 
+.logheader-right {
+display: flex;
 }
-.log-layout{
+
+.log-layout {
   width: 100%;
   height: 100%;
 }
-.formContainer{
-  width: 420px;
+
+.formContainer {
+  width: 320px;
   height: 470px;
   margin: auto;
-  background-color: rgba(255,255,255,0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   border-radius: 40px;
   margin-left: 210px;
 }
-.formWrapper{
+
+.formWrapper {
   margin: auto;
   height: 400px;
 }
-.el-form{
+
+.el-form {
   width: 270px;
   margin: auto;
 }
-.buttonContainer{
+
+.buttonContainer {
   display: flex;
   flex-direction: column;
   font-size: 20px;
 }
+
 .h3 {
   line-height: 60px;
   margin-left: 100px

@@ -14,7 +14,8 @@
           courseLocation: "东九" ,
       },
   {
-      courseName: '逻辑与幽默',
+      courseId: 12343,
+      courseName: '营养与健康',
       courseType: '沟通与管理',
       courseHours: 32,
       courseCredit: 2,
@@ -26,7 +27,8 @@
       courseTime: "周三9-12",
       courseLocation: "东久",
   }, {
-      courseName: '逻辑与幽默',
+          courseId: 12343,
+      courseName: '食品安全与卫生',
           courseType: '沟通与管理',
           courseHours: 32,
           courseCredit: 2,
@@ -38,7 +40,8 @@
           courseTime: "周三9-12",
           courseLocation: "东久",
   }, {
-      courseName: '逻辑与幽默',
+          courseId: 12343,
+      courseName: '深度中国',
           courseType: '沟通与管理',
           courseHours: 32,
           courseCredit: 2,
@@ -51,7 +54,8 @@
           courseLocation: "东久",
   },
           {
-              courseName: '逻辑与幽默',
+              courseId: 12343,
+              courseName: '民国历史人物',
               courseType: '沟通与管理',
               courseHours: 32,
               courseCredit: 2,
@@ -64,7 +68,8 @@
               courseLocation: "东久",
           },
           {
-              courseName: '逻辑与幽默',
+              courseId: 12343,
+              courseName: '晚清历史人物研究',
               courseType: '沟通与管理',
               courseHours: 32,
               courseCredit: 2,
@@ -77,6 +82,7 @@
               courseLocation: "东久",
           },
           {
+              courseId: 12343,
               courseName: '逻辑与幽默',
               courseType: '沟通与管理',
               courseHours: 32,

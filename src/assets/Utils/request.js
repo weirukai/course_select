@@ -12,7 +12,7 @@ export const UserTokenInvalid=130;
 export const intUserTokenExpire=140;
 export const successCode=0;
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://localhost:8090/";
+axios.defaults.baseURL = "http://10.10.234.20:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;

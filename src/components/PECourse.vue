@@ -22,7 +22,8 @@
                 <template>
                   <el-checkbox-group
                       style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                      v-model="checkedCities">
+                      v-model="checkedCities"
+                      @click="handleCheckedLocationsChange">
                     <el-checkbox class="checkbox-container" v-for="local in locals" :label="local" :key="local">
                       <div class="item-li">{{ local }}</div>
                     </el-checkbox>
@@ -41,8 +42,9 @@
                 <template>
                   <el-checkbox-group
                       style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                      v-model="checkedclasstimes">
-                    <el-checkbox class="checkbox-container" v-for="classtime in classtimes" :label="classtime"
+                      v-model="checkedCourseDay"
+                      @click="handleCheckedCourseChange">
+                    <el-checkbox class="checkbox-container" v-for="classtime in courseDays" :label="classtime"
                                  :key="classtime">
                       <div class="item-li">{{ classtime }}</div>
                     </el-checkbox>
@@ -112,19 +114,21 @@
 import {ManyCourses} from "@/components/ManyCourses";
 
 const localOptions = ['东九', '西十二'];
-const classtimeOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+const courseDayOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 export default {
 name: "PECourse",
   data() {
     return {
       checkedCities: ['东九', '西十二'],
-      checkedclasstimes: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-      checkeddepartments: ['马克思学院', '体育学院', '计算机学院'],
-      checkedtypes: ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '思维与方法', '文学与艺术'],
+      checkedCourseDay: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       locals: localOptions,
-      classtimes: classtimeOptions,
+      courseDays: courseDayOptions,
       courses: [],
-      courseNum: 0
+      courseNum: 0,
+      chooseType:{
+        location:["东九","西十二"],
+        courseDay:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      },
     }
   },
 
@@ -165,13 +169,52 @@ name: "PECourse",
     },
     handleCurrentChange(val) {
       this.courses = ManyCourses.slice((val - 1) * 10, val * 10);
+    },
+    handleCheckedLocationsChange(){
+      this.chooseType.location=this.checkedCities;
+    },
+    handleCheckedCourseChange(){
+      this.chooseType.courseDay=this.checkedCourseDay;
     }
+
 
   },
 }
 </script>
 
 <style scoped>
+.option-item {
+  font-size: 16px;
+  color: #333333;
+  line-height: 20px;
+  padding: 24px 0;
+  padding-top: 24px;
+  padding-right: 0px;
+  padding-bottom: 24px;
+  padding-left: 0px;
+  border-bottom: 1px solid #D8D8D8;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #D8D8D8;
+}
+
+.item-li {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  color: #333333;
+  line-height: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.checkbox-container {
+  color: #606226;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 8px;
+}
 
 </style>
 <style>

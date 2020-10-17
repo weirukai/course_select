@@ -20,7 +20,8 @@
                 <template>
                   <el-checkbox-group
                       style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                      v-model="checkedCities">
+                      v-model="checkedCities"
+                      @change="handleCheckedCitiesChange">
                     <el-checkbox class="checkbox-container" v-for="local in locals" :label="local" :key="local">
                       <div class="item-li">{{ local }}</div>
                     </el-checkbox>
@@ -39,8 +40,9 @@
                 <template>
                   <el-checkbox-group
                       style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                      v-model="checkedclasstimes">
-                    <el-checkbox class="checkbox-container" v-for="classtime in classtimes" :label="classtime"
+                      v-model="checkedcourseDay"
+                      @change="handleCheckedCourseDayChange">
+                    <el-checkbox class="checkbox-container" v-for="classtime in courseDay" :label="classtime"
                                  :key="classtime">
                       <div class="item-li">{{ classtime }}</div>
                     </el-checkbox>
@@ -48,24 +50,24 @@
                 </template>
               </el-menu-item-group>
             </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
-                <div class="option-item">
-                  <i class="el-icon-school" style="font-size: 25px;"></i>
-                  <a class="item-link">开课单位</a>
-                </div>
-              </template>
-              <el-menu-item-group>
-                <el-checkbox-group
-                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                    v-model="checkeddepartments">
-                  <el-checkbox class="checkbox-container" v-for="department in departments" :label="department"
-                               :key="department">
-                    <div class="item-li">{{ department }}</div>
-                  </el-checkbox>
-                </el-checkbox-group>
-              </el-menu-item-group>
-            </el-submenu>
+<!--            <el-submenu index="3">-->
+<!--              <template slot="title">-->
+<!--                <div class="option-item">-->
+<!--                  <i class="el-icon-school" style="font-size: 25px;"></i>-->
+<!--                  <a class="item-link">开课单位</a>-->
+<!--                </div>-->
+<!--              </template>-->
+<!--              <el-menu-item-group>-->
+<!--                <el-checkbox-group-->
+<!--                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"-->
+<!--                    v-model="checkeddepartments">-->
+<!--                  <el-checkbox class="checkbox-container" v-for="department in departments" :label="department"-->
+<!--                               :key="department">-->
+<!--                    <div class="item-li">{{ department }}</div>-->
+<!--                  </el-checkbox>-->
+<!--                </el-checkbox-group>-->
+<!--              </el-menu-item-group>-->
+<!--            </el-submenu>-->
             <el-submenu index="4">
               <template slot="title">
                 <div class="option-item">
@@ -75,19 +77,14 @@
               </template>
               <el-menu-item-group>
                 <el-checkbox-group
-                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"
-                    v-model="checkedtypes">
+                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 110px;"
+                    v-model="checkedtypes"
+                    @change="handleCheckedTypeChange">
                   <el-checkbox class="checkbox-container" v-for="classtype in classtypes" :label="classtype"
                                :key="classtype">
                     <div class="item-li">{{ classtype }}</div>
                   </el-checkbox>
                 </el-checkbox-group>
-                <!--            <el-menu-item index="4-1">沟通与管理</el-menu-item>-->
-                <!--            <el-menu-item index="4-2">科技与环境</el-menu-item>-->
-                <!--            <el-menu-item index="4-3">历史与文化</el-menu-item>-->
-                <!--            <el-menu-item index="4-4">文学与艺术</el-menu-item>-->
-                <!--            <el-menu-item index="4-5">社会与经济</el-menu-item>-->
-                <!--            <el-menu-item index="4-6">思维与方法</el-menu-item>-->
               </el-menu-item-group>
             </el-submenu>
           </el-menu>
@@ -150,12 +147,10 @@
 </template>
 
 <script>
-import {requestForCourse} from "@/assets/Utils/requestAPI";
-
 const localOptions = ['东九', '西十二'];
-const classtimeOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+const courseDayOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 const departmentsOptions = ['马克思学院', '体育学院', '计算机学院']
-const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '思维与方法', '文学与艺术']
+const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
 import {ManyCourses} from "@/components/ManyCourses";
 
 export default {
@@ -165,18 +160,18 @@ export default {
   data() {
     return {
       checkedCities: ['东九', '西十二'],
-      checkedclasstimes: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      checkedcourseDay: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       checkeddepartments: ['马克思学院', '体育学院', '计算机学院'],
-      checkedtypes: ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '思维与方法', '文学与艺术'],
+      checkedtypes: ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术'],
       locals: localOptions,
-      classtimes: classtimeOptions,
+      courseDay: courseDayOptions,
       departments: departmentsOptions,
       classtypes: classtypesOptions,
       courses: [],
       courseNum: 0,
       chooseType:{
-        location:["东久","西十二"],
-        classTime:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        location:["东九","西十二"],
+        courseDay:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
         type:['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
       }
     }
@@ -187,11 +182,6 @@ export default {
     currentCourse = ManyCourses.slice(0, 10)
     this.courses = currentCourse
     this.courseNum = ManyCourses.length
-
-  },
-  mounted() {
-    requestForCourse("/course/getGeneralCourse",this.chooseType)
-
   },
   methods: {
     handleMouseOver: function (event) {
@@ -224,7 +214,19 @@ export default {
     },
     handleCurrentChange(val) {
       this.courses = ManyCourses.slice((val - 1) * 10, val * 10);
+    },
+    handleCheckedCitiesChange() {
+      this.chooseType.location=this.checkedCities;
+    },
+    handleCheckedCourseDayChange(){
+      this.chooseType.courseDay =this.checkedcourseDay;
+    },
+    handleCheckedTypeChange(){
+      this.chooseType.type=this.checkedtypes;
     }
+
+
+
 
   },
 

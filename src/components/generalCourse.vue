@@ -150,6 +150,8 @@
 </template>
 
 <script>
+import {requestForCourse} from "@/assets/Utils/requestAPI";
+
 const localOptions = ['东九', '西十二'];
 const classtimeOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
 const departmentsOptions = ['马克思学院', '体育学院', '计算机学院']
@@ -171,7 +173,12 @@ export default {
       departments: departmentsOptions,
       classtypes: classtypesOptions,
       courses: [],
-      courseNum: 0
+      courseNum: 0,
+      chooseType:{
+        location:["东久","西十二"],
+        classTime:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        type:['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
+      }
     }
   },
 
@@ -180,6 +187,11 @@ export default {
     currentCourse = ManyCourses.slice(0, 10)
     this.courses = currentCourse
     this.courseNum = ManyCourses.length
+
+  },
+  mounted() {
+    requestForCourse("/course/getGeneralCourse",this.chooseType)
+
   },
   methods: {
     handleMouseOver: function (event) {

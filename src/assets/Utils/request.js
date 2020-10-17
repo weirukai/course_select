@@ -4,7 +4,7 @@ import {
     Loading
 } from "element-ui";
 import {messages} from './Notice'
-import store from '../../store/index'
+import store from "@/store/index.js";
 
 export const UserNotFound=110;
 export const UserPasswordError=120;
@@ -12,7 +12,7 @@ export const UserTokenInvalid=130;
 export const intUserTokenExpire=140;
 export const successCode=0;
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://localhost:8090/";
+axios.defaults.baseURL = "http://10.10.234.20:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;
@@ -29,7 +29,9 @@ axios.interceptors.request.use(
             fullscreen: true
         });
         if (store.state.token) {
-            // console.log(store.state.token)
+            console.log(11111)
+            console.log(store.state.token)
+            console.log(11111)
             config.headers["Authorization"] = store.state.token;
         }
         return config;

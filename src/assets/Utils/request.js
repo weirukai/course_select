@@ -4,7 +4,7 @@ import {
     Loading
 } from "element-ui";
 import {messages} from './Notice'
-import store from '../../store/index'
+import store from "@/store/index.js";
 
 export const UserNotFound=110;
 export const UserPasswordError=120;
@@ -29,7 +29,9 @@ axios.interceptors.request.use(
             fullscreen: true
         });
         if (store.state.token) {
-            // console.log(store.state.token)
+            console.log(11111)
+            console.log(store.state.token)
+            console.log(11111)
             config.headers["Authorization"] = store.state.token;
         }
         return config;

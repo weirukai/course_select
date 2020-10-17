@@ -1,4 +1,4 @@
-import {post, UserNotFound, UserPasswordError} from './request';
+import { post, UserNotFound, UserPasswordError} from './request';
 import {messages} from "./Notice"
 
 
@@ -16,6 +16,11 @@ export const  login= (that,login)=>
                         that.$store.commit("SaveToken",res.data.data.token)
                         that.$router.push("/mainPage")
                         resolve(res.data.code)
+                        /**
+                         *
+                         *
+                         *
+                         * */
                     }
                     else if (res.status===200&&res.data.code===UserPasswordError||res.data.code===UserNotFound) {
                         /**用户密码存在错误*/
@@ -33,11 +38,7 @@ export const  login= (that,login)=>
 
 export const requestForCourse=(url,courseData)=>
 {
-       courseData={
-           location:["东九","西十二"],
-           courseDay:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-           type:['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
-       }
+
        let stringTemp=''
        for (let i=0;i<courseData.location.length;i++)
     {
@@ -56,9 +57,10 @@ export const requestForCourse=(url,courseData)=>
         stringTemp=stringTemp+'/'+courseData.type[i]
     }
     courseData.type=stringTemp
-        post(url,courseData).then(
+        post('/course/getGeneralCourse',courseData).then(
             (res)=>{
-                return res
+                if (res.status===200&&res.data.code===0)
+                return res.data.data
             },
             (rej)=>{
                 return rej
@@ -71,6 +73,12 @@ export const chooseCourse=()=>
 
 }
 
+
+export const getStudentInfo=()=>
+{
+   return    post('/user/getStudentInfo')
+
+}
 
 
 

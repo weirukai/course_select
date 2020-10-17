@@ -24,6 +24,12 @@ import Aside from "@/pages/layoutContainer/Aside";
 import Header from "@/pages/layoutContainer/Header";
 export default {
   name: "LayoutContainer",
+  mounted() {
+
+
+
+
+    },
   components: {Header, MainContainer, Aside},
 }
 </script>

@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import {getStudentInfo} from "@/assets/Utils/requestAPI";
+
 export default {
   data(){
     return {
@@ -69,6 +71,17 @@ export default {
         avatar:"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1877122670,861705441&fm=26&gp=0.jpg",
       }
     }
+  },
+  mounted() {
+    getStudentInfo().then((res)=>{
+      if (res.status===200&&res.data.code===0)
+      {
+        this.user.username=res.data.data.name
+        this.user.studentID=res.data.data.studentId
+        this.user.classID=res.data.data.grade
+      }
+    })
+
   }
 }
 </script>

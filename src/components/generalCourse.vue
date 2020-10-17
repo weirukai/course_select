@@ -100,20 +100,20 @@
               <p class="recruit-tips">
                 <span>课时:{{ Item.courseHours }}</span>
                 <el-divider direction="vertical"></el-divider>
-                <span>容量:{{ Item.capacity }}</span>
+                <span>容量:{{ Item.peopleNum }}</span>
                 <el-divider direction="vertical"></el-divider>
                 <span>学分:{{ Item.courseCredit }}</span>
                 <el-divider direction="vertical"></el-divider>
-                <span>周次:{{ Item.courseWeek }}</span>
+                <span>周次:{{ Item.courseWeekly }}</span>
                 <el-divider direction="vertical"></el-divider>
                 <span>地点:{{ Item.courseLocation }}</span>
               </p>
 
               <p class="recruit-text">
-                教师：{{ Item.courseCollege }}-{{ Item.teacherName }}-{{ Item.teacherTitle }};
+                教师：{{ Item.courseCollege }}-{{ Item.courseTeacher}}-{{ Item.teacherType }};
               </p>
               <p class="recruit-text">
-                时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
+                时间: 上课周次为{{ Item.courseWeekly }},每周时间为{{ Item.courseDay }}:{{Item.courseSection}}
               </p>
 
 
@@ -147,8 +147,10 @@
 </template>
 
 <script>
+import {requestForCourse} from "@/assets/Utils/requestAPI";
+
 const localOptions = ['东九', '西十二'];
-const courseDayOptions = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+const courseDayOptions = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 const departmentsOptions = ['马克思学院', '体育学院', '计算机学院']
 const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
 import {ManyCourses} from "@/components/ManyCourses";
@@ -160,7 +162,7 @@ export default {
   data() {
     return {
       checkedCities: ['东九', '西十二'],
-      checkedcourseDay: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      checkedcourseDay: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
       checkeddepartments: ['马克思学院', '体育学院', '计算机学院'],
       checkedtypes: ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术'],
       locals: localOptions,
@@ -171,7 +173,7 @@ export default {
       courseNum: 0,
       chooseType:{
         location:["东九","西十二"],
-        courseDay:['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        courseDay:['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
         type:['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
       }
     }
@@ -183,6 +185,11 @@ export default {
     this.courses = currentCourse
     this.courseNum = ManyCourses.length
   },
+
+  mounted() {
+   this.courses=requestForCourse("/course/getGeneralCourse",this.chooseType)
+  },
+
   methods: {
     handleMouseOver: function (event) {
       var currentDom = event.currentTarget
@@ -212,18 +219,29 @@ export default {
       });
 
     },
+
+    refreshClass:function ()
+    {
+      requestForCourse('/course/getGeneralCourse',this.chooseType)
+
+    },
     handleCurrentChange(val) {
       this.courses = ManyCourses.slice((val - 1) * 10, val * 10);
     },
     handleCheckedCitiesChange() {
       this.chooseType.location=this.checkedCities;
+      this.refreshClass()
     },
     handleCheckedCourseDayChange(){
       this.chooseType.courseDay =this.checkedcourseDay;
+      this.refreshClass()
+
     },
     handleCheckedTypeChange(){
       this.chooseType.type=this.checkedtypes;
+      this.refreshClass()
     }
+
 
 
 

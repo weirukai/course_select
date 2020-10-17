@@ -12,7 +12,7 @@ export const UserTokenInvalid=130;
 export const intUserTokenExpire=140;
 export const successCode=0;
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://10.10.234.20:8090/";
+axios.defaults.baseURL = "http://localhost:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;
@@ -118,20 +118,20 @@ axios.interceptors.response.use(
  *@param {String} url [请求的url地址]
  *@param {Object} params [请求时候携带的参数]
  */
-export function get(url, params) {
-    return new Promise((resolve, reject) => {
-        axios
-            .get(url, {
-                params
-            })
-            .then(res => {
-                resolve(res);
-            })
-            .catch(err => {
-                reject(err);
-            });
-    });
-}
+// export function get(url, params) {
+//     return new Promise((resolve, reject) => {
+//         axios
+//             .get(url, {
+//                 params
+//             })
+//             .then(res => {
+//                 resolve(res);
+//             })
+//             .catch(err => {
+//                 reject(err);
+//             });
+//     });
+// }
 
 /*
  *post方法，对应post请求
@@ -165,4 +165,13 @@ export function post(url, params) {
             //     reject(err);
             // });
     // });
+}
+
+export function get(url, params) {
+    // return new Promise((resolve, reject) => {
+    return    axios
+        .get(url, params);
+    // .then(res => {
+    //         // resolve(res)
+
 }

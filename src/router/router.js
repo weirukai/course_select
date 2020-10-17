@@ -4,9 +4,11 @@ import LayoutContainer from "@/pages/layoutContainer/LayoutContainer";
 
 Vue.use(Router)
 const myRouter = new Router({
-    routes: [{
-        path: '/',
+    routes: [
+        {
+        path: '',
         redirected: '/login',
+        component: () => import("../pages/login/login"),
     },
         {
             path: '/login',
@@ -26,7 +28,6 @@ const myRouter = new Router({
                 {
                     path: "",
                     redirect:"generalCourse"
-
                 },
                 {
                     name:'generalCourse',

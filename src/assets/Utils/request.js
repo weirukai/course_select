@@ -6,8 +6,13 @@ import {
 import {messages} from './Notice'
 import store from '../../store/index'
 
+export const UserNotFound=110;
+export const UserPasswordError=120;
+export const UserTokenInvalid=130;
+export const intUserTokenExpire=140;
+export const successCode=0;
 axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://10.10.200.70:8090/";
+axios.defaults.baseURL = "http://localhost:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;
@@ -24,7 +29,7 @@ axios.interceptors.request.use(
             fullscreen: true
         });
         if (store.state.token) {
-           // console.log(store.state.token)
+            // console.log(store.state.token)
             config.headers["Authorization"] = store.state.token;
         }
         return config;
@@ -41,12 +46,14 @@ axios.interceptors.response.use(
     response => {
         return new Promise((resolve, reject) => {
             //请求成功后关闭加载框
+            console.log(response.status)
             if (loading) {
                 loading.close();
             }
             const res = response;
-            if (res.data.code === 0) {
+            if (res.status===200) {
                 resolve(res)
+                /*do nothing else   next response will solve these all**/
             } else {
                 reject(res)
             }
@@ -82,7 +89,7 @@ axios.interceptors.response.use(
                     "未找到远程服务器"
                 );
                 break;
-            case 401:
+            case 403:
                 messages("warning", "用户登陆过期，请重新登陆");
                 store.state.commit('COMMIT_TOKEN', '')
                 setTimeout(() => {
@@ -130,24 +137,30 @@ export function get(url, params) {
  *@param {Object} params [请求时候携带的参数]
  */
 export function post(url, params) {
-    return new Promise((resolve, reject) => {
-        axios
-            .post(url, params)
-            .then(res => {
-                // resolve(res)
-                try {
-                    if (res.status == 200 && res.data.code === 0) {
-                        //请求成功
-                        resolve(res)
-                    } else {
-                        reject(res)
-                    }
-                } catch (error) {
-                    reject(res)
-                }
-            })
-            .catch(err => {
-                reject(err);
-            });
-    });
+    // return new Promise((resolve, reject) => {
+     return    axios
+            .post(url, params);
+            // .then(res => {
+            //         // resolve(res)
+            //         try {
+            //             if (res.status === 200 && res.data.code === 0) {
+            //                 //请求成功
+            //                 resolve(res)
+            //             } else {
+            //                 reject(res)
+            //             }
+            //         } catch (error) {
+            //             reject(res)
+            //         }
+            //     }, (rej) => {
+            //
+            //         console.log(rej)
+            //
+            //
+            //     }
+            // )
+            // .catch(err => {
+            //     reject(err);
+            // });
+    // });
 }

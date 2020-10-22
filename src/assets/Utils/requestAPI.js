@@ -40,45 +40,59 @@ export const requestForCourse=(url,courseData)=>
 {
 
        let stringTemp=''
+     let NewCourseData={
+           location:'',
+           type:'',
+           courseDay:''
+     }
        for (let i=0;i<courseData.location.length;i++)
     {
         stringTemp=stringTemp+'/'+courseData.location[i];
     }
-       courseData.location=stringTemp
+       NewCourseData.location=stringTemp
        stringTemp=''
     for (let i=0;i<courseData.courseDay.length;i++)
     {
         stringTemp=stringTemp+'/'+courseData.courseDay[i]
     }
-    courseData.courseDay=stringTemp
+    NewCourseData.courseDay=stringTemp
     stringTemp=''
     for (let i=0;i<courseData.type.length;i++)
     {
         stringTemp=stringTemp+'/'+courseData.type[i]
     }
-    courseData.type=stringTemp
-        post('/course/getGeneralCourse',courseData).then(
-            (res)=>{
-                if (res.status===200&&res.data.code===0)
-                return res.data.data
-            },
-            (rej)=>{
-                return rej
-            }
-        )
+    NewCourseData.type=stringTemp
+      return   post('/course/getGeneralCourse',NewCourseData)
 }
 
-export const chooseCourse=()=>
+export const chooseCourse=(classID)=>
 {
-
+     let course={
+        "courseId":classID
+    }
+    return post('/course/selectGeneralCourse',course)
 }
-
-
 export const getStudentInfo=()=>
 {
    return    post('/user/getStudentInfo')
-
 }
+
+export const getUserSelectedCourse=()=>{
+    return post("/course/getSelectedGeneralCourse")
+}
+
+
+export const dropCourse=(courseId)=>{
+    let course={
+        "courseId":courseId
+    }
+    return post("/course/deleteGeneralCourse",course)
+}
+
+
+
+
+
 
 
 

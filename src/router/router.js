@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import LayoutContainer from "@/pages/layoutContainer/LayoutContainer";
-
+import store from "@/store/index";
 Vue.use(Router)
 const myRouter = new Router({
     routes: [
@@ -68,6 +68,10 @@ const myRouter = new Router({
 
 myRouter.beforeEach((to, from, next) =>{
     document.querySelector('body').setAttribute('style','margin:0;padding:0;height:100%')
-    next()
+    if (to.path !== '/login' && !store.state.token) {
+        next('/login')
+    } else {
+        next();
+    }
 })
 export default myRouter

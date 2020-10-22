@@ -50,24 +50,24 @@
                 </template>
               </el-menu-item-group>
             </el-submenu>
-<!--            <el-submenu index="3">-->
-<!--              <template slot="title">-->
-<!--                <div class="option-item">-->
-<!--                  <i class="el-icon-school" style="font-size: 25px;"></i>-->
-<!--                  <a class="item-link">开课单位</a>-->
-<!--                </div>-->
-<!--              </template>-->
-<!--              <el-menu-item-group>-->
-<!--                <el-checkbox-group-->
-<!--                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"-->
-<!--                    v-model="checkeddepartments">-->
-<!--                  <el-checkbox class="checkbox-container" v-for="department in departments" :label="department"-->
-<!--                               :key="department">-->
-<!--                    <div class="item-li">{{ department }}</div>-->
-<!--                  </el-checkbox>-->
-<!--                </el-checkbox-group>-->
-<!--              </el-menu-item-group>-->
-<!--            </el-submenu>-->
+            <!--            <el-submenu index="3">-->
+            <!--              <template slot="title">-->
+            <!--                <div class="option-item">-->
+            <!--                  <i class="el-icon-school" style="font-size: 25px;"></i>-->
+            <!--                  <a class="item-link">开课单位</a>-->
+            <!--                </div>-->
+            <!--              </template>-->
+            <!--              <el-menu-item-group>-->
+            <!--                <el-checkbox-group-->
+            <!--                    style="display: flex;flex-direction: column;align-items: baseline;margin-left: 120px;"-->
+            <!--                    v-model="checkeddepartments">-->
+            <!--                  <el-checkbox class="checkbox-container" v-for="department in departments" :label="department"-->
+            <!--                               :key="department">-->
+            <!--                    <div class="item-li">{{ department }}</div>-->
+            <!--                  </el-checkbox>-->
+            <!--                </el-checkbox-group>-->
+            <!--              </el-menu-item-group>-->
+            <!--            </el-submenu>-->
             <el-submenu index="4">
               <template slot="title">
                 <div class="option-item">
@@ -110,10 +110,10 @@
               </p>
 
               <p class="recruit-text">
-                教师：{{ Item.courseCollege }}-{{ Item.courseTeacher}}-{{ Item.teacherType }};
+                教师：{{ Item.courseCollege }}-{{ Item.courseTeacher }}-{{ Item.teacherType }};
               </p>
               <p class="recruit-text">
-                时间: 上课周次为{{ Item.courseWeekly }},每周时间为{{ Item.courseDay }}:{{Item.courseSection}}
+                时间: 上课周次为{{ Item.courseWeekly }},每周时间为{{ Item.courseDay }}:{{ Item.courseSection }}
               </p>
 
 
@@ -147,13 +147,13 @@
 </template>
 
 <script>
-import {requestForCourse} from "@/assets/Utils/requestAPI";
+import {chooseCourse, requestForCourse} from "@/assets/Utils/requestAPI";
 
 const localOptions = ['东九', '西十二'];
 const courseDayOptions = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
 const departmentsOptions = ['马克思学院', '体育学院', '计算机学院']
 const classtypesOptions = ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
-import {ManyCourses} from "@/components/ManyCourses";
+
 
 export default {
   name: "generalCourse",
@@ -170,25 +170,48 @@ export default {
       departments: departmentsOptions,
       classtypes: classtypesOptions,
       courses: [],
+      allCourse: [],
       courseNum: 0,
-      chooseType:{
-        location:["东九","西十二"],
-        courseDay:['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
-        type:['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
+      chooseType: {
+        location: ["东九", "西十二"],
+        courseDay: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'],
+        type: ['沟通与管理', '科技与环境', '历史与文化', '社会与经济', '文学与艺术']
       }
     }
   },
 
   created() {
     var currentCourse = [];
-    currentCourse = ManyCourses.slice(0, 10)
-    this.courses = currentCourse
-    this.courseNum = ManyCourses.length
-  },
+    let chooseType = this.chooseType
+    requestForCourse("/course/getGeneralCourse", chooseType).then(
+        (res) => {
+          if (res.status === 200 && res.data.code === 0)
+            this.allCourse = res.data.data
+          currentCourse = this.allCourse.slice(0, 10)
+          this.courses = currentCourse
+          this.courseNum = this.allCourse.length
+        },
+        (rej) => {
+          return rej
+        }
+    )
 
-  mounted() {
-   this.courses=requestForCourse("/course/getGeneralCourse",this.chooseType)
+
   },
+  //
+  // mounted() {
+  //   let that=this
+  //   let chooseType=this.chooseType
+  //  requestForCourse("/course/getGeneralCourse",chooseType).then(
+  //      (res)=>{
+  //        if (res.status===200&&res.data.code===0)
+  //          that.courses=res.data.data
+  //      },
+  //      (rej)=>{
+  //        return rej
+  //      }
+  //  )
+  // },
 
   methods: {
     handleMouseOver: function (event) {
@@ -207,43 +230,57 @@ export default {
         type: 'info',
         center: true
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '选择成功!'
-        });
+        chooseCourse(classID).then((res) => {
+             if (res.status===200&&res.data.code===0)
+             {
+              this.refreshClass()
+               this.$message({
+                 type: 'success',
+                 message: '选择成功!'
+               });
+             }
+            }
+        )
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消'
         });
       });
-
     },
-
-    refreshClass:function ()
-    {
-      requestForCourse('/course/getGeneralCourse',this.chooseType)
+    refreshClass: function () {
+      let currentCourse = []
+      let chooseType = this.chooseType
+      requestForCourse('/course/getGeneralCourse', chooseType).then(
+          (res) => {
+            if (res.status === 200 && res.data.code === 0)
+              this.allCourse = res.data.data
+            currentCourse = this.allCourse.slice(0, 10)
+            this.courses = currentCourse
+            this.courseNum = this.allCourse.length
+          },
+          (rej) => {
+            return rej
+          }
+      )
 
     },
     handleCurrentChange(val) {
-      this.courses = ManyCourses.slice((val - 1) * 10, val * 10);
+      this.courses = this.allCourse.slice((val - 1) * 10, val * 10);
     },
     handleCheckedCitiesChange() {
-      this.chooseType.location=this.checkedCities;
+      this.chooseType.location = this.checkedCities;
       this.refreshClass()
     },
-    handleCheckedCourseDayChange(){
-      this.chooseType.courseDay =this.checkedcourseDay;
+    handleCheckedCourseDayChange() {
+      this.chooseType.courseDay = this.checkedcourseDay;
       this.refreshClass()
 
     },
-    handleCheckedTypeChange(){
-      this.chooseType.type=this.checkedtypes;
+    handleCheckedTypeChange() {
+      this.chooseType.type = this.checkedtypes;
       this.refreshClass()
     }
-
-
-
 
 
   },

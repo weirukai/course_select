@@ -11,8 +11,8 @@ export const UserPasswordError=120;
 export const UserTokenInvalid=130;
 export const intUserTokenExpire=140;
 export const successCode=0;
-axios.defaults.timeout = 60000;
-axios.defaults.baseURL = "http://localhost:8090/";
+axios.defaults.timeout = 50000;
+axios.defaults.baseURL = "http://10.10.245.92:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;
@@ -29,9 +29,6 @@ axios.interceptors.request.use(
             fullscreen: true
         });
         if (store.state.token) {
-            console.log(11111)
-            console.log(store.state.token)
-            console.log(11111)
             config.headers["Authorization"] = store.state.token;
         }
         return config;
@@ -56,7 +53,18 @@ axios.interceptors.response.use(
             if (res.status===200) {
                 resolve(res)
                 /*do nothing else   next response will solve these all**/
-            } else {
+
+
+            }else if(res.status===403)
+            {
+                //说明验证信息有问题
+                store.commit("SaveToken",'')
+                router.push("/login")
+
+
+            }
+
+            else {
                 reject(res)
             }
         })
@@ -93,7 +101,7 @@ axios.interceptors.response.use(
                 break;
             case 403:
                 messages("warning", "用户登陆过期，请重新登陆");
-                store.state.commit('COMMIT_TOKEN', '')
+                store.commit('COMMIT_TOKEN', '')
                 setTimeout(() => {
                     router.replace({
                         path: "/login",

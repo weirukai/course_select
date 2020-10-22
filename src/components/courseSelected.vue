@@ -8,7 +8,7 @@
           <el-col :span="12">
             <div :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
-              <div class="recruit-list-link" @click="chooseClass">
+              <div class="recruit-list-link" @click="dropClass">
                 <h4 class="courseTitle">{{ Item.courseName }}(--{{ Item.courseType }})</h4>
                 <p class="recruit-tips">
                   <span>课时:{{ Item.courseHours }}</span>
@@ -32,7 +32,7 @@
 
               </div>
 
-              <i class="el-icon-delete selectIcon color-danger"  @click="chooseClass(Item.id)"></i>
+              <i class="el-icon-delete selectIcon color-danger"  @click="dropClass(Item.id)"></i>
 
             </div>
           </el-col>
@@ -40,7 +40,7 @@
 
             <div :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
-              <div class="recruit-list-link" @click="chooseClass">
+              <div class="recruit-list-link" @click="dropClass">
                 <h4 class="courseTitle">{{ Item.courseName }}(--{{ Item.courseType }})</h4>
                 <p class="recruit-tips">
                   <span>课时:{{ Item.courseHours }}</span>
@@ -60,45 +60,46 @@
                 <p class="recruit-text">
                   时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
                 </p>
-
-
               </div>
 
-              <i class="el-icon-delete selectIcon color-danger" @click="chooseClass(Item.id)"></i>
-
+              <i class="el-icon-delete selectIcon color-danger" @click="dropClass(Item.id)"></i>
 
             </div>
 
           </el-col>
         </el-row>
-
       </div>
 
-
-
-
     </div>
-
-
-
-
-
 
 
   </div>
 </template>
 
 <script>
-import {ManyCourses} from "@/components/ManyCourses";
+import { dropCourse, getUserSelectedCourse} from "@/assets/Utils/requestAPI";
+
 
 export default {
   name: "courseSelected",
   data(){
     return {
-      courses:ManyCourses
+      courses:null
     }
   },
+created() {
+    this.refreshSelectedCourse()
+  },
   methods:{
+    refreshSelectedCourse:function ()
+    {
+      getUserSelectedCourse().then((res)=>{
+        if(res.status===200&&res.data.code===0)
+        {
+          this.courses=res.data.data
+        }
+      })
+    },
     handleMouseOver: function (event) {
       var currentDom = event.currentTarget
       currentDom.setAttribute("class", "courseItemActive selectedCourseItemActive")
@@ -107,6 +108,39 @@ export default {
       var currentDom = event.currentTarget
       currentDom.setAttribute("class", "courseItem selectedCourseItem")
     },
+    dropClass:function (classID){
+      this.$confirm('确定退选这门课程?', '确认信息', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      }).then(() => {
+        dropCourse(classID).then((res) => {
+              if (res.status===200&&res.data.code===0)
+              {
+                this.refreshSelectedCourse()
+                this.$message({
+                  type: 'success',
+                  message: '退选成功!'
+                });
+              }
+            }
+        )
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+
+
+
+
+
+    }
+
+
+
   }
 
 }

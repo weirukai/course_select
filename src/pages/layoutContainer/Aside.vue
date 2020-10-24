@@ -7,7 +7,7 @@
         @close="handleClose"
         @select="select"
         text-color="#fff"
-        active-text-color="#abcdef"
+        active-text-color="#409eff"
         router
         >
       <!--router属性可以直接将menu-item的index映射成router的path-->
@@ -17,7 +17,7 @@
             <template slot="title">
               <i :class="index.icon"></i>
               <span slot="title">{{ index.name }}</span>
-              <div class="asideSelectedDivider" v-bind:style="activeIndex!=index.id?'background-color:inherit':'background-color:#abcdef'" ></div>
+              <div class="asideSelectedDivider" v-bind:style="activeIndex!=index.id?'background-color:inherit':'background-color:#409eff'" ></div>
             </template>
           </el-menu-item>
 

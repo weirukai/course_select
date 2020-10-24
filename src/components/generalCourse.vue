@@ -95,7 +95,7 @@
         <div class="courseDisplayContainer">
           <div v-for="Item in courses" :key="Item.courseId" class="courseItem" @mouseover="handleMouseOver($event)"
                @mouseleave="handleMouseLeave($event)">
-            <div class="recruit-list-link" @click="chooseClass">
+            <div class="recruit-list-link" >
               <h4 class="courseTitle">{{ Item.courseName }}(--{{ Item.courseType }})</h4>
               <p class="recruit-tips">
                 <span>课时:{{ Item.courseHours }}</span>

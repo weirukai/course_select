@@ -3,10 +3,10 @@
 
 
     <div >
-      <div v-for="(Item,index) in courses" :key="Item.courseId">
-        <el-row :gutter="20">
+      <div v-for="(Item,index) in courses" :key="Item.id">
+        <el-row :gutter="20"  v-if="index<(courses.length)/2" >
           <el-col :span="12">
-            <div v-if="index%2===0" :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
+            <div  :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
               <div class="recruit-list-link" @click="dropClass" style="text-align: left">
                 <h4 class="courseTitle">{{ Item.courseName }}</h4>
@@ -28,40 +28,36 @@
                 <p class="recruit-text">
                   时间: 上课周次为{{ Item.courseWeekly }},每周时间为{{ Item.courseDay }}:{{ Item.courseSection }}
                 </p>
-
-
               </div>
-
               <i class="el-icon-delete selectIcon color-danger"  @click="dropClass(Item.id)"></i>
-
             </div>
           </el-col>
           <el-col :span="12">
-            <div v-if="index%2===1" :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
+            <div v-if="index+(courses.length)/2<courses.length" :key="(Item+(courses.length)/2).id" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
               <div class="recruit-list-link" @click="dropClass" style="text-align: left">
-                <h4 class="courseTitle">{{Item.courseName }}(--{{ Item.courseType }})</h4>
+                <h4 class="courseTitle">{{(Item+(courses.length)/2).courseName }}(--{{ (Item+(courses.length)/2).courseType }})</h4>
                 <p class="recruit-tips">
-                  <span>课时:{{ Item.courseHours }}</span>
+                  <span>课时:{{(Item+(courses.length)/2).courseHours }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>容量1:{{ Item.capacity }}</span>
+                  <span>容量1:{{(Item+(courses.length)/2).capacity }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>学分:{{ Item.courseCredit }}</span>
+                  <span>学分:{{ (Item+(courses.length)/2).courseCredit }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>周次:{{ Item.courseWeek }}</span>
+                  <span>周次:{{(Item+(courses.length)/2).courseWeek }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>地点:{{Item.courseLocation }}</span>
+                  <span>地点:{{(Item+(courses.length)/2).courseLocation }}</span>
                 </p>
 
                 <p class="recruit-text">
-                  教师：{{ Item.courseCollege }}-{{Item.teacherName }}-{{ Item.teacherTitle }};
+                  教师：{{ (Item+(courses.length)/2).courseCollege }}-{{(Item+(courses.length)/2).teacherName }}-{{ (Item+(courses.length)/2).teacherTitle }};
                 </p>
                 <p class="recruit-text">
-                  时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
+                  时间: 上课周次为{{ (Item+(courses.length)/2).courseWeek }},每周时间为{{(Item+(courses.length)/2).courseTime }}
                 </p>
               </div>
 
-              <i class="el-icon-delete selectIcon color-danger" @click="dropClass(Item.id)"></i>
+              <i class="el-icon-delete selectIcon color-danger" @click="dropClass((Item+(courses.length)/2).id)"></i>
 
             </div>
 
@@ -83,7 +79,7 @@ export default {
   name: "courseSelected",
   data(){
     return {
-      courses:null
+      courses:null,
     }
   },
 created() {

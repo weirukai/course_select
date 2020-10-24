@@ -8,6 +8,7 @@
     flex-direction: row;
     align-items: center;
     min-width: 583px;
+    justify-content: space-around;
 
 }
 
@@ -15,13 +16,14 @@
     box-shadow: 8px 6px 3px 0 rgba(0, 0, 0, 0.05);
     margin-bottom: 16px;
     min-height: 184px;
-    color: #abcdef;
+    color: #409eff;
     position: relative;
     bottom: 6px;
     display: flex;
     flex-direction: row;
     align-items: center;
     min-width: 583px;
+    justify-content: space-around;
 
 }
 

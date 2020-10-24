@@ -45,6 +45,11 @@
                         <el-input v-model.number="ruleForm.age"></el-input>
                       </el-form-item>-->
                       <div class="buttonContainer">
+                        <div style="display: flex;justify-content: space-between;height: 30px">
+                          <el-radio>记住密码</el-radio>
+                          <a style="float: right;text-underline: #1a1aa6 ;font-size: 14px" class="color-blue"
+                             href="www.baidu.com"><span>忘记密码?</span></a>
+                        </div>
                         <el-button type="primary" @click="submitForm('ruleForm')"
                                    style="margin-bottom: 20px;font-size: 20px">提交
                         </el-button>
@@ -93,10 +98,9 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      let that=this
+      let that = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
-
 
 
           login(that, this.ruleForm)
@@ -156,7 +160,7 @@ export default {
 }
 
 .logheader-right {
-display: flex;
+  display: flex;
 }
 
 .log-layout {

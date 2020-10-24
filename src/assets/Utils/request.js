@@ -5,18 +5,16 @@ import {
 } from "element-ui";
 import {messages} from './Notice'
 import store from "@/store/index.js";
-
 export const UserNotFound=110;
 export const UserPasswordError=120;
 export const UserTokenInvalid=130;
 export const intUserTokenExpire=140;
 export const successCode=0;
-axios.defaults.timeout = 50000;
-axios.defaults.baseURL = "http://10.10.245.92:8090/";
+// axios.defaults.timeout = 50000;
+axios.defaults.baseURL = "http://localhost:8090/";
 axios.defaults.headers["Content-Type"] =
     "applicaion/json";
 let loading = null;
-
 /*
  *请求前拦截
  *用于处理需要请求前的操作
@@ -53,17 +51,12 @@ axios.interceptors.response.use(
             if (res.status===200) {
                 resolve(res)
                 /*do nothing else   next response will solve these all**/
-
-
             }else if(res.status===403)
             {
                 //说明验证信息有问题
                 store.commit("SaveToken",'')
                 router.push("/login")
-
-
             }
-
             else {
                 reject(res)
             }
@@ -81,7 +74,9 @@ axios.interceptors.response.use(
             if (error.message.includes("timeout")) {
                 console.log("超时了");
                 messages("error", "请求超时，请检查互联网连接");
-            } else {
+            }
+            else
+            {
                 //断网，可以展示断网组件
                 console.log("断网了");
                 messages("error", "请检查网络是否已连接");

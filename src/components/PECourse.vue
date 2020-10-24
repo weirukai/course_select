@@ -8,8 +8,6 @@
               default-active="2"
               class="el-menu-general"
               unique-opened=true
-              @open="handleOpen"
-              @close="handleClose"
           >
             <el-submenu index="1">
               <template slot="title">

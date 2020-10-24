@@ -3,30 +3,30 @@
 
 
     <div >
-      <div v-for="Item in courses" :key="Item.courseId">
+      <div v-for="(Item,index) in courses" :key="Item.courseId">
         <el-row :gutter="20">
           <el-col :span="12">
-            <div :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
+            <div v-if="index%2===0" :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
-              <div class="recruit-list-link" @click="dropClass">
-                <h4 class="courseTitle">{{ Item.courseName }}(--{{ Item.courseType }})</h4>
+              <div class="recruit-list-link" @click="dropClass" style="text-align: left">
+                <h4 class="courseTitle">{{ Item.courseName }}</h4>
                 <p class="recruit-tips">
                   <span>课时:{{ Item.courseHours }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>容量:{{ Item.capacity }}</span>
+                  <span>容量:{{ Item.peopleNum }}</span>
                   <el-divider direction="vertical"></el-divider>
                   <span>学分:{{ Item.courseCredit }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>周次:{{ Item.courseWeek }}</span>
+
+                  <span>周次:{{Item.courseWeekly}}</span>
                   <el-divider direction="vertical"></el-divider>
                   <span>地点:{{ Item.courseLocation }}</span>
                 </p>
-
                 <p class="recruit-text">
-                  教师：{{ Item.courseCollege }}-{{ Item.teacherName }}-{{ Item.teacherTitle }};
+                  教师：{{ Item.courseCollege }}-{{ Item.courseTeacher }}-{{ Item.teacherType }};
                 </p>
                 <p class="recruit-text">
-                  时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
+                  时间: 上课周次为{{ Item.courseWeekly }},每周时间为{{ Item.courseDay }}:{{ Item.courseSection }}
                 </p>
 
 
@@ -37,25 +37,24 @@
             </div>
           </el-col>
           <el-col :span="12">
-
-            <div :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
+            <div v-if="index%2===1" :key="Item.courseId" class="courseItem selectedCourseItem" @mouseover="handleMouseOver($event)"
                  @mouseleave="handleMouseLeave($event)">
-              <div class="recruit-list-link" @click="dropClass">
-                <h4 class="courseTitle">{{ Item.courseName }}(--{{ Item.courseType }})</h4>
+              <div class="recruit-list-link" @click="dropClass" style="text-align: left">
+                <h4 class="courseTitle">{{Item.courseName }}(--{{ Item.courseType }})</h4>
                 <p class="recruit-tips">
                   <span>课时:{{ Item.courseHours }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>容量:{{ Item.capacity }}</span>
+                  <span>容量1:{{ Item.capacity }}</span>
                   <el-divider direction="vertical"></el-divider>
                   <span>学分:{{ Item.courseCredit }}</span>
                   <el-divider direction="vertical"></el-divider>
                   <span>周次:{{ Item.courseWeek }}</span>
                   <el-divider direction="vertical"></el-divider>
-                  <span>地点:{{ Item.courseLocation }}</span>
+                  <span>地点:{{Item.courseLocation }}</span>
                 </p>
 
                 <p class="recruit-text">
-                  教师：{{ Item.courseCollege }}-{{ Item.teacherName }}-{{ Item.teacherTitle }};
+                  教师：{{ Item.courseCollege }}-{{Item.teacherName }}-{{ Item.teacherTitle }};
                 </p>
                 <p class="recruit-text">
                   时间: 上课周次为{{ Item.courseWeek }},每周时间为{{ Item.courseTime }}
